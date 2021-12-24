@@ -3,14 +3,21 @@ import { Flex } from "@chakra-ui/react";
 import ErrorIndicator from "../error-indicator";
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
-import StarshipsPageItem from './startships-data-grid-item'
+import StarshipsPageItem from "./startships-data-grid-item";
 import BottomButtons from "../bottom-buttons/bottom-buttons";
 
-
-
-const StarshipsDataGrid = ({ starshipsData, error, onSortChange, sortOrder, sortColumn, currentPage,
-  totalPageCount, dispatchSetCurrentPage, onSearchChange, inputValue }) => {
-
+const StarshipsDataGrid = ({
+  starshipsData,
+  error,
+  onSortChange,
+  sortOrder,
+  sortColumn,
+  currentPage,
+  totalPageCount,
+  dispatchSetCurrentPage,
+  onSearchChange,
+  inputValue,
+}) => {
   const buttons = [
     { name: "starship_class", label: "Starship class" },
     { name: "MGLT", label: "MGLT" },
@@ -18,8 +25,8 @@ const StarshipsDataGrid = ({ starshipsData, error, onSortChange, sortOrder, sort
     { name: "pilots", label: "Pilots" },
   ];
 
-  if(error) {
-  return  <ErrorIndicator/>
+  if (error) {
+    return <ErrorIndicator />;
   }
   const elements = starshipsData.map((item) => {
     const { _id, ...itemProps } = item;
@@ -37,24 +44,26 @@ const StarshipsDataGrid = ({ starshipsData, error, onSortChange, sortOrder, sort
       </Flex>
     );
   });
-  return  (<>
-              <SearchPanel
-            onSearchChange={onSearchChange}
-            inputValue={inputValue}
-          />
-  <AppHeader
-      onSortChange={onSortChange}
-      sortOrder={sortOrder}
-      sortColumn={sortColumn}
-      buttons={buttons}
+  return (
+    <>
+      <SearchPanel onSearchChange={onSearchChange} inputValue={inputValue} />
+      <AppHeader
+        onSortChange={onSortChange}
+        sortOrder={sortOrder}
+        sortColumn={sortColumn}
+        buttons={buttons}
       />
-  <Flex className="table__row_wrapper" direction="column"> {elements} </Flex>
-  <BottomButtons
-          currentPage={currentPage}
-          totalPageCount={totalPageCount}
-          dispatchSetCurrentPage={dispatchSetCurrentPage}
-        />
-  </>)
+      <Flex className="table__row_wrapper" direction="column">
+        {" "}
+        {elements}{" "}
+      </Flex>
+      <BottomButtons
+        currentPage={currentPage}
+        totalPageCount={totalPageCount}
+        dispatchSetCurrentPage={dispatchSetCurrentPage}
+      />
+    </>
+  );
 };
 
 export default StarshipsDataGrid;
