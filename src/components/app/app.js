@@ -1,116 +1,86 @@
-import { React, useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
-import { ChakraProvider, Box } from "@chakra-ui/react";
+import {React, useState, useEffect} from "react";
+import {BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom";
+import {ChakraProvider, Box} from "@chakra-ui/react";
 import MainPage from "../main-page";
-import AppHeader from "../app-header";
-import SearchPanel from "../search-panel";
-import StarWarsDataGrid from "../sw-data-grid";
-import Spinner from "../spinner/index";
-import BottomButtons from "../bottom-buttons/bottom-buttons";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchData, setCurrentPage, fetchStarshipsData } from "../../redux/people/peopleActions";
-import StarshipsPage from "../starships-page";
+import {useDispatch} from "react-redux";
+import { setCurrentPage } from "../../redux/people/peopleActions";
+
+import StarshipsPage from "../../pages/starships-page";
+import PeoplePage from "../../pages/people-page";
 
 function App() {
-  const reduxStore = useSelector((state) => ({
-    reduxData: state.data,
-    error: state.error,
-    loading: state.loading,
-    currentPage: state.currentPage,
-    totalPageCount: state.totalCount,
-  }));
-  let {
-    reduxData = [],
-    error,
-    loading,
-    currentPage,
-    totalPageCount,
-  } = reduxStore;
 
-  console.log(reduxStore)
-  const [inputValue, setSearchValue] = useState("");
-  const [sortOrder, setOrder] = useState(null);
-  const [sortColumn, setSortColumn] = useState(null);
+    const [inputValue, setSearchValue] = useState("");
+    const [sortOrder, setOrder] = useState(null);
+    const [sortColumn, setSortColumn] = useState(null);
+    const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
+    const onSortChange = (newSortColumn, newSortOrder) => {
+        if (sortColumn === newSortColumn) {
+            setOrder(newSortOrder);
+        } else {
+            setOrder("asc");
+        }
 
-  useEffect(() => {
-    dispatch(
-      fetchData({ sortOrder, sortColumn, inputValue, currentPage }, reduxData)
-    );
-  }, [sortOrder, sortColumn, inputValue, reduxData.length, currentPage]);
+        setSortColumn(newSortColumn);
+    };
 
+    const onSearchChange = (e) => {
+        setSearchValue(e.target.value); //rename value
+    };
 
-  const onSortChange = (newSortColumn, newSortOrder) => {
-    if (sortColumn === newSortColumn) {
-      setOrder(newSortOrder);
-    } else {
-      setOrder("asc");
+    const dispatchSetCurrentPage = (page) => {
+        dispatch(setCurrentPage(page))
     }
-
-    setSortColumn(newSortColumn);
-  };
-
-  const onSearchChange = (e) => {
-    setSearchValue(e.target.value); //rename value
-  };
-
-  return (
-    <ChakraProvider>
-      <Router>
-        <Box
-          className="table__wrapper"
-          border="1px solid rgba(224, 224, 224, 1)"
-          borderBottom="none"
-          borderRadius="4"
-        >
-          <NavLink to="/" exact="true"><Box mt={10}> Home</Box></NavLink>
-          <SearchPanel
+    return (
+        <ChakraProvider>
+            <Router>
+                <Box
+                    className="table__wrapper"
+                    border="1px solid rgba(224, 224, 224, 1)"
+                    borderBottom="none"
+                    borderRadius="4"
+                >
+                    <NavLink to="/" exact="true"><Box mt={10}> Home</Box></NavLink>
+                    {/* <SearchPanel
             onSearchChange={onSearchChange}
             inputValue={inputValue}
-          />
-          <Routes>
-            <Route path='/' element={<MainPage/>}/>
-            <Route
-              path="/people"
-              element={
-                <StarWarsDataGrid prizesData={reduxData} error={error}
-                onSortChange={onSortChange}
-                sortOrder={sortOrder}
-                setOrder={() => setOrder}
-                sortColumn={sortColumn}
-                onSearchChange={onSearchChange}
-                inputValue={inputValue} 
-                />
-                // loading ? (
-                //   <Spinner />
-                // ) : (
-                //   <StarWarsDataGrid prizesData={reduxData} error={error}
-                //   onSortChange={onSortChange}
-                //   sortOrder={sortOrder}
-                //   setOrder={() => setOrder}
-                //   sortColumn={sortColumn}
-                //   onSearchChange={onSearchChange}
-                //   inputValue={inputValue} 
-                //   />
-                  
-                // )
-              }
-            />
-            <Route
-            path="/startships"
-            element={<StarshipsPage/>}
-            />
-          </Routes>
-        </Box>
-        <BottomButtons
-          currentPage={currentPage}
-          totalPageCount={totalPageCount}
-          setCurrentPage={setCurrentPage}
-        />
-      </Router>
-    </ChakraProvider>
-  );
+          /> */}
+                    <Routes>
+                        <Route path='/' element={<MainPage/>}/>
+                        <Route
+                            path="/people"
+                            element={
+                                <PeoplePage
+                                    onSortChange={onSortChange}
+                                    sortOrder={sortOrder}
+                                    setOrder={() => setOrder}
+                                    sortColumn={sortColumn}
+                                    onSearchChange={onSearchChange}
+                                    inputValue={inputValue}
+                                    dispatchSetCurrentPage={dispatchSetCurrentPage}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/startships"
+                            element={
+                                <StarshipsPage
+                                    onSortChange={onSortChange}
+                                    sortOrder={sortOrder}
+                                    setOrder={() => setOrder}
+                                    sortColumn={sortColumn}
+                                    onSearchChange={onSearchChange}
+                                    inputValue={inputValue}
+                                    dispatchSetCurrentPage={dispatchSetCurrentPage}
+                                />
+                            }
+                        />
+                    </Routes>
+                </Box>
+            </Router>
+        </ChakraProvider>
+    );
 }
 
 export default App;

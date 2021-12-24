@@ -1,12 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Button, Flex } from "@chakra-ui/react";
 import { createPages } from "../../utils/pageCreator";
 import { pageSize } from "../../configs/config";
 import './main.css';
 
-const BottomButtons = ({ currentPage, totalPageCount, setCurrentPage }) => {
-  const dispatch = useDispatch();
+const BottomButtons = ({ currentPage, totalPageCount, dispatchSetCurrentPage }) => {
 
   const pages = [];
   const pageCount = Math.ceil(totalPageCount / pageSize);
@@ -26,7 +24,7 @@ const BottomButtons = ({ currentPage, totalPageCount, setCurrentPage }) => {
  <span
         key={index}
         className={currentPage == item ? "current-page" : "page"}
-        onClick={() => dispatch(setCurrentPage(item))}>{item + 1}</span>
+        onClick={ () => dispatchSetCurrentPage(item)}>{item + 1}</span>
     );
   });
 
@@ -36,9 +34,8 @@ const BottomButtons = ({ currentPage, totalPageCount, setCurrentPage }) => {
       <Button
         colorScheme="teal"
         variant="link"
-        key={new Date()}
         display={"block"}
-        onClick={() => dispatch(setCurrentPage(0))}
+        onClick={() => dispatchSetCurrentPage(0)}
       >
         &#8606;
       </Button>
@@ -49,10 +46,9 @@ const BottomButtons = ({ currentPage, totalPageCount, setCurrentPage }) => {
         colorScheme="teal"
         outline={'none'}
         variant="link"
-        key={123232}
         display={"block"}
         
-        onClick={() => dispatch(setCurrentPage(pageCount -1))}
+        onClick={() => dispatchSetCurrentPage(pageCount -1)}
       >
         &#8608;
       </Button>

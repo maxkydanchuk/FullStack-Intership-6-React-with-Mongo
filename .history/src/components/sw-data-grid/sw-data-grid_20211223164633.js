@@ -2,7 +2,7 @@ import React from "react";
 import { Flex } from "@chakra-ui/react";
 import AppHeader from "../app-header";
 import ErrorIndicator from "../error-indicator";
-import SwDataGridItem from "../sw-data-grid-item";
+import SwDataGridItem from "../people-data-grid-item";
 
 
 

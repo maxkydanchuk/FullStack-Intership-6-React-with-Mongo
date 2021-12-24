@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
-import StarWarsDataGrid from "../sw-data-grid";
+import StarWarsDataGrid from "../people-data-grid";
 import Spinner from "../spinner/index";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../../store/actions";

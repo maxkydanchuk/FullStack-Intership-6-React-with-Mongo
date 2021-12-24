@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Routes, Route } from "react-router-dom
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
-import StarWarsDataGrid from "../sw-data-grid";
+import StarWarsDataGrid from "../people-data-grid";
 import Spinner from "../spinner/index";
 import BottomButtons from "../bottom-buttons/bottom-buttons";
 import { useSelector, useDispatch } from "react-redux";

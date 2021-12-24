@@ -11,17 +11,10 @@ function getArrows(order) {
   }
 }
 
-const AppHeader = ({ onSortChange, sortOrder, sortColumn }) => {
+const AppHeader = ({ onSortChange, sortOrder, sortColumn , buttons}) => {
 
  const newOrder = sortOrder === "asc" ? "desc" : "asc";
 
-  const buttons = [
-    { name: "name", label: "Name" },
-    { name: "birth_year", label: "Birth Year" },
-    { name: "gender", label: "Gender" },
-    { name: "eye_color", label: "Eye Color" },
-    { name: "height", label: "Height" },
-  ];
 
   const Boxes = buttons.map(({ name, label }) => {
 

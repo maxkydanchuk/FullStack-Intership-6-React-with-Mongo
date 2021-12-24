@@ -4,7 +4,7 @@ import { ChakraProvider, Box } from "@chakra-ui/react";
 import MainPage from "../main-page";
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
-import StarWarsDataGrid from "../sw-data-grid";
+import StarWarsDataGrid from "../people-data-grid";
 import Spinner from "../spinner/index";
 import BottomButtons from "../bottom-buttons/bottom-buttons";
 import { useSelector, useDispatch } from "react-redux";

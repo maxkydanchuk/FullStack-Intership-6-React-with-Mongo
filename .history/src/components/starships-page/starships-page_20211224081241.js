@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
 import ErrorIndicator from "../error-indicator";
-import SwDataGridItem from "../sw-data-grid-item";
+import SwDataGridItem from "../people-data-grid-item";
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
 import StarshipsPageItem from '../starships-page/startships-page-item'

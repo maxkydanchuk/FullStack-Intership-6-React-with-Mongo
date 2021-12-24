@@ -32,9 +32,22 @@ export default class apiService {
     return person;
   };
 
-  getAllStarships = async () => {
-    const res = await this.getResource(`/starships/`);
-    return this._adaptStaships(res);
+  getAllStarships = async (param, query , value, currentPage, pageSize) => {
+
+    let res = [];
+    if(param && query && value) {
+      res = await this.getResource(`/starships?page=${currentPage}&size=${pageSize}&sortOrder=${param}&sortBy=${query}&search=${value}`)
+    }
+    else if(param && query) {
+       res = await this.getResource(`/starships?page=${currentPage}}&size=${pageSize}&sortOrder=${param}&sortBy=${query}`)
+    } 
+    else if(value) {
+      res = await this.getResource(`/starships?page=${currentPage}&size=${pageSize}&search=${value}`)
+    }  else {
+      res = await this.getResource(`/starships?page=${currentPage}&size=${pageSize}`)
+    }
+    
+    return {data:this._adaptStaships(res), totalCount: res.totalCount};
   };
   getStarship = async (id) => {
     const starship = await this.getResource(`/starships/${id}`);
@@ -62,7 +75,6 @@ export default class apiService {
 
   _adaptStaships = (data) => {
     const result = [];
-    console.log(result)
     data.data.forEach((starship) => {
       const { _id, fields } = starship;
       const {

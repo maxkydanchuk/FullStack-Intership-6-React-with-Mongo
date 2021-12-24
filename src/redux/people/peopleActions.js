@@ -29,7 +29,7 @@ export const setCurrentPage = (page) => ({
   page
 });
 
-export function fetchData(param) {
+export function fetchPeopleData(param) {
   return (dispatch) => {
     const { sortOrder, sortColumn, inputValue, currentPage } = param;
     dispatch(dataAreLoading(true));

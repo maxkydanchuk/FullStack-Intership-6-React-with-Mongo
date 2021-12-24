@@ -5,16 +5,16 @@ const StarshipsPageItem = ({ starshipClass, MGLT, hyperdriveRating, pilots }) =>
   return (
     <>
       <Box className="table__row_class" flex="2" pt="8" pb="8">
-        class
+        {starshipClass}
       </Box>
       <Box className="table__row_mglt" flex="2" pt="8" pb="8">
-        MGLT
+        {MGLT}
       </Box>
       <Box className="table__row_hyperdriver" flex="2" pt="8" pb="8">
-        Rating
+        {hyperdriveRating}
       </Box>
       <Box className="table__row_pilots" flex="2" pt="8" pb="8">
-      Pilots
+      {pilots}
       </Box>
     </>
   );

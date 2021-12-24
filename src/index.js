@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import App from './components/app';
 import store from './redux/strore';
 
-console.log(store.getState())
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

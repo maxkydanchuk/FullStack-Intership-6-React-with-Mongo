@@ -1,3 +1,11 @@
+import {
+  FETCH_STARSHIPS_SUCCESS,
+  STARSHIPS_HAS_ERROR,
+  STARSHIPS_ARE_LOADING,
+  FILTER_STARSHIPS,
+  SET_CURRENT_PAGE
+} from './starshipsTypes'
+
 const initialState = {
   data: [],
   loading: false,
@@ -8,25 +16,25 @@ const initialState = {
 
 export const starshipsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "DATA_ARE_LOADING":
+    case STARSHIPS_ARE_LOADING:
       return {
         ...state,
         loading: true,
       };
-    case "FETCH_DATA_SUCCESS":
+    case FETCH_STARSHIPS_SUCCESS:
       return {
         ...state,
         data: action.data,
         totalCount: action.totalCount,
         loading: false,
       };
-    case "DATA_HAVE_ERROR":
+    case STARSHIPS_HAS_ERROR:
       return {
         ...state,
         loading: false,
         error: action.haveError,
       };
-      case "SET_CURRENT_PAGE":
+      case SET_CURRENT_PAGE:
         return {
           ...state,
           currentPage: action.page
