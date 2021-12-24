@@ -11,16 +11,6 @@ const BottomButtons = ({ currentPage, totalPageCount, dispatchSetCurrentPage }) 
   createPages(pages, pageCount, currentPage);
   const elements = pages.map((item, index) => {
     return (
-      // <Button
-      //   colorScheme="teal"
-      //   variant="link"
-      //   key={index}
-      //   display={"block"}
-      //   outline={"none"}
-      //   onClick={() => dispatch(setCurrentPage(item))}
-      // >
-      //   {item + 1}
-      // </Button>
  <span
         key={index}
         className={currentPage == item ? "current-page" : "page"}
