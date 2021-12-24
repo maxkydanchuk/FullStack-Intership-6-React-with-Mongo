@@ -2,7 +2,8 @@ import {
   FETCH_PEOPLE_SUCCESS,
   PEOPLE_HAS_ERROR,
   PEOPLE_ARE_LOADING,
-  SET_CURRENT_PAGE
+  SET_CURRENT_PAGE,
+  RESET_STORE
 } from './peopleTypes'
 
 const initialState = {
@@ -38,6 +39,10 @@ export const peopleReducer = (state = initialState, action) => {
           ...state,
           currentPage: action.page
         };
+        case RESET_STORE: 
+          return {
+            initialState
+        }
     default:
       return state;
   }

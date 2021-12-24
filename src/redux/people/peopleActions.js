@@ -4,7 +4,8 @@ import {
     FETCH_PEOPLE_SUCCESS,
     PEOPLE_HAS_ERROR,
     PEOPLE_ARE_LOADING,
-    SET_CURRENT_PAGE
+    SET_CURRENT_PAGE,
+    RESET_STORE
 } from './peopleTypes'
 
 const api = new apiService();
@@ -31,9 +32,13 @@ export const filterData = (payload) => ({
 });
 
 export const setCurrentPage = (page) => ({
-    type: 'SET_CURRENT_PAGE',
+    type: SET_CURRENT_PAGE,
     page
 });
+
+export const resetStore = () => ({
+    type: RESET_STORE,
+})
 
 export function fetchPeopleData(param) {
     return (dispatch) => {

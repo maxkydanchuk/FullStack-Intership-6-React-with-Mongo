@@ -9,11 +9,11 @@ export function createPages(pages, pagesCount, currentPage) {
         else {
             for (let i = 0; i < 10; i++) {
                 pages.push(i)
-                if(i == pagesCount) break
+                if(i === pagesCount -1) break
             }
         }
     }  else {
-        for (let i = 0; i <= pagesCount ; i++) {
+        for (let i = 0; i <= pagesCount -1 ; i++) {
             pages.push(i)
         }
     }

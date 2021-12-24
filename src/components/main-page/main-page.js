@@ -6,7 +6,6 @@ import {
   NavLink,
 } from "react-router-dom";
 import {
-  ChakraProvider,
   Box,
   Flex,
   Button,
@@ -17,7 +16,6 @@ import {
 
 const MainPage = () => {
   return (
-    <ChakraProvider>
       <Flex align={"center"} justify={"center"} direction={"column"}>
         <Box> Welcome to Star Wars databse</Box>
         <Box boxSize="s ">
@@ -52,7 +50,6 @@ const MainPage = () => {
           </NavLink>
         </ButtonGroup>
       </Flex>
-    </ChakraProvider>
   );
 };
 

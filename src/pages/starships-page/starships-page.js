@@ -1,7 +1,8 @@
 import { React, useEffect } from "react";
-import { fetchStarshipsData } from "../../redux/starships/starshipsActions";
+import { fetchStarshipsData, resetStore } from "../../redux/starships/starshipsActions";
 import { useDispatch, useSelector } from "react-redux";
 import StarshipsDataGrid from "../../components/starships-data-grid";
+
 
 const StarshipsPage = ({
   onSortChange,
@@ -30,22 +31,15 @@ const StarshipsPage = ({
   useEffect(() => {
     dispatch(
       fetchStarshipsData(
-        {
-          sortOrder,
-          sortColumn,
-          inputValue,
-          currentPage: starshipsCurrentPage,
-        },
-        starshipsData
+        {sortOrder,sortColumn, inputValue,currentPage: starshipsCurrentPage,}, starshipsData
       )
     );
-  }, [
-    sortOrder,
-    sortColumn,
-    inputValue,
-    starshipsData.length,
-    starshipsCurrentPage,
-  ]);
+  }, [ sortOrder, sortColumn, inputValue, starshipsData.length, starshipsCurrentPage]);
+
+  useEffect(() => {
+    dispatch(resetStore())
+  }, [])
+
   return (
     <StarshipsDataGrid
       starshipsData={starshipsData}

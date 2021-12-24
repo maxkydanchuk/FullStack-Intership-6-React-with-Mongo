@@ -2,8 +2,8 @@ import {
   FETCH_STARSHIPS_SUCCESS,
   STARSHIPS_HAS_ERROR,
   STARSHIPS_ARE_LOADING,
-  FILTER_STARSHIPS,
-  SET_CURRENT_PAGE
+  SET_CURRENT_PAGE,
+  RESET_STORE
 } from './starshipsTypes'
 
 const initialState = {
@@ -39,6 +39,10 @@ export const starshipsReducer = (state = initialState, action) => {
           ...state,
           currentPage: action.page
         };
+        case RESET_STORE: 
+        return {
+          initialState
+        }
     default:
       return state;
   }

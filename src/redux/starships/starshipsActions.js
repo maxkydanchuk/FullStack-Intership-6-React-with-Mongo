@@ -5,7 +5,8 @@ import {
     STARSHIPS_HAS_ERROR,
     STARSHIPS_ARE_LOADING,
     FILTER_STARSHIPS,
-    SET_CURRENT_PAGE
+    SET_CURRENT_PAGE,
+    RESET_STORE
 } from './starshipsTypes'
 
 const api = new apiService();
@@ -35,6 +36,10 @@ export const setCurrentPage = (page) => ({
     type: SET_CURRENT_PAGE,
     page
 });
+
+export const resetStore = () => ({
+    type: RESET_STORE,
+})
 
 
 export function fetchStarshipsData(param) {

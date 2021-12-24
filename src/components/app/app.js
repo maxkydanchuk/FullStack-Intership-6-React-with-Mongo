@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,7 +8,7 @@ import {
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import MainPage from "../main-page";
 import { useDispatch } from "react-redux";
-import { setCurrentPage } from "../../redux/people/peopleActions";
+import { setCurrentPage, resetStore } from "../../redux/people/peopleActions";
 
 import StarshipsPage from "../../pages/starships-page";
 import PeoplePage from "../../pages/people-page";
@@ -18,6 +18,10 @@ function App() {
   const [sortOrder, setOrder] = useState(null);
   const [sortColumn, setSortColumn] = useState(null);
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+
+  // }, [resetStore()])
 
   const onSortChange = (newSortColumn, newSortOrder) => {
     if (sortColumn === newSortColumn) {

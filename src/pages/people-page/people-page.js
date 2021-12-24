@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { React, useEffect } from "react";
-import { fetchPeopleData } from "../../redux/people/peopleActions";
+import { fetchPeopleData, resetStore } from "../../redux/people/peopleActions";
 import PeopleDataGrid from "../../components/people-data-grid";
 
 const PeoplePage = ({
@@ -39,6 +39,11 @@ const PeoplePage = ({
     );
   }, [sortOrder, sortColumn, inputValue, peopleData.length, peopleCurrentPage]);
 
+  useEffect(() => {
+    dispatch(resetStore())
+  }, [])
+
+ 
   return (
     <PeopleDataGrid
       peopleData={peopleData}
