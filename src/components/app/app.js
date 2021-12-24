@@ -1,37 +1,51 @@
 import { React, useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import { ChakraProvider, Box } from "@chakra-ui/react";
+import MainPage from "../main-page";
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
 import StarWarsDataGrid from "../sw-data-grid";
-import Spinner from '../spinner/index'
+import Spinner from "../spinner/index";
+import BottomButtons from "../bottom-buttons/bottom-buttons";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchData, sortAndSearchData } from "../../store/actions";
+import { fetchData, setCurrentPage, fetchStarshipsData } from "../../redux/people/peopleActions";
+import StarshipsPage from "../starships-page";
 
 function App() {
   const reduxStore = useSelector((state) => ({
     reduxData: state.data,
     error: state.error,
-    loading: state.loading
+    loading: state.loading,
+    currentPage: state.currentPage,
+    totalPageCount: state.totalCount,
   }));
-  
+  let {
+    reduxData = [],
+    error,
+    loading,
+    currentPage,
+    totalPageCount,
+  } = reduxStore;
+
+  console.log(reduxStore)
   const [inputValue, setSearchValue] = useState("");
   const [sortOrder, setOrder] = useState(null);
   const [sortColumn, setSortColumn] = useState(null);
 
   const dispatch = useDispatch();
 
-  let { reduxData = [], error, loading } = reduxStore;
-
   useEffect(() => {
-    dispatch(fetchData({ sortOrder, sortColumn, inputValue }, reduxData));
-  }, [sortOrder, sortColumn, inputValue, reduxData.length]);
+    dispatch(
+      fetchData({ sortOrder, sortColumn, inputValue, currentPage }, reduxData)
+    );
+  }, [sortOrder, sortColumn, inputValue, reduxData.length, currentPage]);
 
 
   const onSortChange = (newSortColumn, newSortOrder) => {
     if (sortColumn === newSortColumn) {
       setOrder(newSortOrder);
     } else {
-      setOrder('asc');
+      setOrder("asc");
     }
 
     setSortColumn(newSortColumn);
@@ -43,22 +57,58 @@ function App() {
 
   return (
     <ChakraProvider>
-      <Box
-        className="table__wrapper"
-        border="1px solid rgba(224, 224, 224, 1)"
-        borderBottom='none'
-        borderRadius="4"
-
-      >
-        <SearchPanel onSearchChange={onSearchChange} inputValue={inputValue} />
-        <AppHeader
-          onSortChange={onSortChange}
-          sortOrder={sortOrder}
-          setOrder={() => setOrder}
-          sortColumn={sortColumn}
+      <Router>
+        <Box
+          className="table__wrapper"
+          border="1px solid rgba(224, 224, 224, 1)"
+          borderBottom="none"
+          borderRadius="4"
+        >
+          <NavLink to="/" exact="true"><Box mt={10}> Home</Box></NavLink>
+          <SearchPanel
+            onSearchChange={onSearchChange}
+            inputValue={inputValue}
+          />
+          <Routes>
+            <Route path='/' element={<MainPage/>}/>
+            <Route
+              path="/people"
+              element={
+                <StarWarsDataGrid prizesData={reduxData} error={error}
+                onSortChange={onSortChange}
+                sortOrder={sortOrder}
+                setOrder={() => setOrder}
+                sortColumn={sortColumn}
+                onSearchChange={onSearchChange}
+                inputValue={inputValue} 
+                />
+                // loading ? (
+                //   <Spinner />
+                // ) : (
+                //   <StarWarsDataGrid prizesData={reduxData} error={error}
+                //   onSortChange={onSortChange}
+                //   sortOrder={sortOrder}
+                //   setOrder={() => setOrder}
+                //   sortColumn={sortColumn}
+                //   onSearchChange={onSearchChange}
+                //   inputValue={inputValue} 
+                //   />
+                  
+                // )
+              }
+            />
+            <Route
+            path="/startships"
+            element={<StarshipsPage/>}
+            />
+          </Routes>
+        </Box>
+        <BottomButtons
+          currentPage={currentPage}
+          totalPageCount={totalPageCount}
+          setCurrentPage={setCurrentPage}
         />
-        {loading ? <Spinner/> : <StarWarsDataGrid prizesData={reduxData} error={error}/>}
-      </Box>
+      </Router>
     </ChakraProvider>
   );
 }

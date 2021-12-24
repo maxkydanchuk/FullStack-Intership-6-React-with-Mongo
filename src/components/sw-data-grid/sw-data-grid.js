@@ -2,17 +2,17 @@ import React from "react";
 import { Flex } from "@chakra-ui/react";
 import ErrorIndicator from "../error-indicator";
 import SwDataGridItem from "../sw-data-grid-item";
+import AppHeader from "../app-header";
 
 
 
-const StarWarsDataGrid = ({ prizesData, error, isLoading }) => {
+const StarWarsDataGrid = ({ prizesData, error, onSortChange, sortOrder, sortColumn}) => {
   if(error) {
   return  <ErrorIndicator/>
   }
-
-
   const elements = prizesData.map((item) => {
     const { _id, ...itemProps } = item;
+    
     return (
       <Flex
         key={_id}
@@ -27,7 +27,15 @@ const StarWarsDataGrid = ({ prizesData, error, isLoading }) => {
       </Flex>
     );
   });
-  return  <Flex className="table__row_wrapper" direction="column"> {elements}</Flex>;
+  return  (
+  <>
+  <AppHeader
+      onSortChange={onSortChange}
+      sortOrder={sortOrder}
+      sortColumn={sortColumn}
+      />
+  <Flex className="table__row_wrapper" direction="column"> {elements}</Flex>
+  </>)
 };
 
 export default StarWarsDataGrid;

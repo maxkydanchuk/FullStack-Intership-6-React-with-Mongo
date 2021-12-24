@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import App from './components/app';
-import store from './store/reducer';
+import store from './redux/strore';
 
-
+console.log(store.getState())
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
