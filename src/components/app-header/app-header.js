@@ -1,46 +1,8 @@
 import { React } from "react";
-import { Flex, Box } from "@chakra-ui/react";
-import { ArrowUpIcon, ArrowDownIcon, ArrowUpDownIcon } from "@chakra-ui/icons";
-
-function getArrows(order) {
-  if (order === 'asc') {
-    return <ArrowUpIcon />;
-  }
-  if (order === "desc") {
-    return <ArrowDownIcon />;
-  }
-}
+import { Flex } from "@chakra-ui/react";
+import AppHeaderRow from "./app-header-row";
 
 const AppHeader = ({ onSortChange, sortOrder, sortColumn , buttons}) => {
-
- const newOrder = sortOrder === "asc" ? "desc" : "asc";
-
-
-  const Boxes = buttons.map(({ name, label }) => {
-
-    function sortedArrows() {
-      if (sortColumn === name) {
-        return getArrows(newOrder);
-      } else {
-        return <ArrowUpDownIcon />;
-      }
-    }
-    return (
-      <Box
-        key={name}
-        className="table__header_year"
-        onClick={() => onSortChange(name, newOrder)}
-        flex="2"
-        cursor="pointer"
-        _hover={{
-          background: "white",
-          color: "teal.500",
-        }}
-      >
-        {label} {sortedArrows()}
-      </Box>
-    );
-  });
 
   return (
     <Flex
@@ -51,7 +13,12 @@ const AppHeader = ({ onSortChange, sortOrder, sortColumn , buttons}) => {
       textAlign={"center"}
       h="20"
     >
-      {Boxes}
+      <AppHeaderRow
+      onSortChange={onSortChange}
+      sortOrder={sortOrder}
+      sortColumn={sortColumn}
+      buttons={buttons}
+      />
     </Flex>
   );
 };
