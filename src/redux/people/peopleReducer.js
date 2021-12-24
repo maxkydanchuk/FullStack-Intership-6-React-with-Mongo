@@ -1,3 +1,10 @@
+import {
+  FETCH_PEOPLE_SUCCESS,
+  PEOPLE_HAS_ERROR,
+  PEOPLE_ARE_LOADING,
+  SET_CURRENT_PAGE
+} from './peopleTypes'
+
 const initialState = {
   data: [],
   loading: false,
@@ -8,25 +15,25 @@ const initialState = {
 
 export const peopleReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "DATA_ARE_LOADING":
+    case PEOPLE_ARE_LOADING:
       return {
         ...state,
         loading: true,
       };
-    case "FETCH_DATA_SUCCESS":
+    case FETCH_PEOPLE_SUCCESS:
       return {
         ...state,
         data: action.data,
         totalCount: action.totalCount,
         loading: false,
       };
-    case "DATA_HAVE_ERROR":
+    case PEOPLE_HAS_ERROR:
       return {
         ...state,
         loading: false,
         error: action.haveError,
       };
-      case "SET_CURRENT_PAGE":
+      case SET_CURRENT_PAGE:
         return {
           ...state,
           currentPage: action.page
@@ -36,4 +43,3 @@ export const peopleReducer = (state = initialState, action) => {
   }
 };
 
-export default peopleReducer;
