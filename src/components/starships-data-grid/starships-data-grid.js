@@ -1,10 +1,9 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
 import ErrorIndicator from "../error-indicator";
-import AppHeader from "../app-header";
-import SearchPanel from "../search-panel";
+import DataGridHeader from "../data-grid-header";
 import StarshipsPageItem from "./startships-data-grid-item";
-import BottomButtons from "../bottom-buttons/bottom-buttons";
+
 
 const StarshipsDataGrid = ({
   starshipsData,
@@ -12,9 +11,6 @@ const StarshipsDataGrid = ({
   onSortChange,
   sortOrder,
   sortColumn,
-  currentPage,
-  totalPageCount,
-  dispatchSetCurrentPage,
   onSearchChange,
   inputValue,
 }) => {
@@ -46,8 +42,7 @@ const StarshipsDataGrid = ({
   });
   return (
     <>
-      <SearchPanel onSearchChange={onSearchChange} inputValue={inputValue} />
-      <AppHeader
+      <DataGridHeader
         onSortChange={onSortChange}
         sortOrder={sortOrder}
         sortColumn={sortColumn}
@@ -57,11 +52,6 @@ const StarshipsDataGrid = ({
         {" "}
         {elements}{" "}
       </Flex>
-      <BottomButtons
-        currentPage={currentPage}
-        totalPageCount={totalPageCount}
-        dispatchSetCurrentPage={dispatchSetCurrentPage}
-      />
     </>
   );
 };

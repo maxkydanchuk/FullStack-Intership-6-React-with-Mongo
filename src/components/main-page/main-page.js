@@ -1,8 +1,5 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
   NavLink,
 } from "react-router-dom";
 import {
@@ -37,7 +34,7 @@ const MainPage = () => {
               People
             </Button>
           </NavLink>
-          <NavLink to="/startships" exact="true">
+          <NavLink to="/starships" exact="true">
           <Button
             size="md"
             height="48px"

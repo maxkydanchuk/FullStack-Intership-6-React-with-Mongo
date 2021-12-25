@@ -1,12 +1,13 @@
 import React from "react";
-import { Input, Flex } from "@chakra-ui/react";
+import { Input, Flex, Box } from "@chakra-ui/react";
 
 const SearchPanel = ({ onSearchChange, inputValue }) => {
   return (
+<>
     <Flex
       className="table__header_search"
-      justify="center"
       align="center"
+      justify="center"
       p={(2, 3)}
     >
       <Input
@@ -19,6 +20,7 @@ const SearchPanel = ({ onSearchChange, inputValue }) => {
         onChange={onSearchChange}
       />
     </Flex>
+</>
   );
 };
 

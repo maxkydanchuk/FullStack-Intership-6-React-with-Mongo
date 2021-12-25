@@ -13,7 +13,9 @@ function getArrows(order) {
   }
 
   
-const AppHeaderRow = ({buttons, sortOrder, onSortChange,sortColumn}) => {
+const DataGridHeaderRow = ({props}) => {
+
+    const { buttons, sortOrder, onSortChange,sortColumn } = props;
 
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
 
@@ -46,4 +48,4 @@ const AppHeaderRow = ({buttons, sortOrder, onSortChange,sortColumn}) => {
     )
 }
 
-export default AppHeaderRow;
+export default DataGridHeaderRow;

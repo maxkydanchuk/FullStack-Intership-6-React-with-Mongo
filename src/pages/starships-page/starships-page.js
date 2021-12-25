@@ -2,6 +2,8 @@ import { React, useEffect } from "react";
 import { fetchStarshipsData, resetStore } from "../../redux/starships/starshipsActions";
 import { useDispatch, useSelector } from "react-redux";
 import StarshipsDataGrid from "../../components/starships-data-grid";
+import PageNavbar from "../../components/page-navbar";
+import BottomButtons from "../../components/bottom-buttons";
 
 
 const StarshipsPage = ({
@@ -14,7 +16,7 @@ const StarshipsPage = ({
   dispatchSetCurrentPage,
 }) => {
   const dispatch = useDispatch();
-
+  
   const starshipsStore = useSelector((state) => ({
     starshipsData: state.starships.data,
     starshipsError: state.starships.error,
@@ -31,7 +33,7 @@ const StarshipsPage = ({
   useEffect(() => {
     dispatch(
       fetchStarshipsData(
-        {sortOrder,sortColumn, inputValue,currentPage: starshipsCurrentPage,}, starshipsData
+        {sortOrder,sortColumn, inputValue, currentPage: starshipsCurrentPage,}, starshipsData
       )
     );
   }, [ sortOrder, sortColumn, inputValue, starshipsData.length, starshipsCurrentPage]);
@@ -41,18 +43,25 @@ const StarshipsPage = ({
   }, [])
 
   return (
-    <StarshipsDataGrid
-      starshipsData={starshipsData}
-      onSortChange={onSortChange}
-      sortOrder={sortOrder}
-      setOrder={() => setOrder}
-      sortColumn={sortColumn}
-      onSearchChange={onSearchChange}
-      inputValue={inputValue}
-      currentPage={starshipsCurrentPage}
-      totalPageCount={starshipsTotalPageCount}
-      dispatchSetCurrentPage={dispatchSetCurrentPage}
-    />
+      <>
+        <PageNavbar
+            onSearchChange={onSearchChange}
+            inputValue={inputValue}
+        />
+        <StarshipsDataGrid
+            starshipsData={starshipsData}
+            onSortChange={onSortChange}
+            sortOrder={sortOrder}
+            setOrder={() => setOrder}
+            sortColumn={sortColumn}
+            onSearchChange={onSearchChange}
+        />
+        <BottomButtons
+            currentPage={starshipsCurrentPage}
+            totalPageCount={starshipsTotalPageCount}
+            dispatchSetCurrentPage={dispatchSetCurrentPage}
+        />
+      </>
   );
 };
 

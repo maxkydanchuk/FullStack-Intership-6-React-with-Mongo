@@ -1,14 +1,13 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  NavLink,
 } from "react-router-dom";
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import MainPage from "../main-page";
 import { useDispatch } from "react-redux";
-import { setCurrentPage, resetStore } from "../../redux/people/peopleActions";
+import { setCurrentPage } from "../../redux/people/peopleActions";
 
 import StarshipsPage from "../../pages/starships-page";
 import PeoplePage from "../../pages/people-page";
@@ -18,10 +17,6 @@ function App() {
   const [sortOrder, setOrder] = useState(null);
   const [sortColumn, setSortColumn] = useState(null);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-
-  // }, [resetStore()])
 
   const onSortChange = (newSortColumn, newSortOrder) => {
     if (sortColumn === newSortColumn) {
@@ -49,9 +44,9 @@ function App() {
           borderBottom="none"
           borderRadius="4"
         >
-          <NavLink to="/" exact="true">
+          {/* <NavLink to="/" exact="true">
             <Box mt={10}> Home</Box>
-          </NavLink>
+          </NavLink> */}
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route
@@ -69,7 +64,7 @@ function App() {
               }
             />
             <Route
-              path="/startships"
+              path="/starships"
               element={
                 <StarshipsPage
                   onSortChange={onSortChange}

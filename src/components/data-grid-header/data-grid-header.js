@@ -1,8 +1,8 @@
 import { React } from "react";
 import { Flex } from "@chakra-ui/react";
-import AppHeaderRow from "./app-header-row";
+import DataGridHeaderRow from "./data-grid-header-row";
 
-const AppHeader = ({ onSortChange, sortOrder, sortColumn , buttons}) => {
+const DataGridHeader = (props) => {
 
   return (
     <Flex
@@ -13,14 +13,9 @@ const AppHeader = ({ onSortChange, sortOrder, sortColumn , buttons}) => {
       textAlign={"center"}
       h="20"
     >
-      <AppHeaderRow
-      onSortChange={onSortChange}
-      sortOrder={sortOrder}
-      sortColumn={sortColumn}
-      buttons={buttons}
-      />
+      <DataGridHeaderRow props={props}/>
     </Flex>
   );
 };
 
-export default AppHeader;
+export default DataGridHeader;

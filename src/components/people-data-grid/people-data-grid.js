@@ -1,23 +1,19 @@
-import React from "react";
+import { React, useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import ErrorIndicator from "../error-indicator";
 import PeopleDataGridItem from "./people-data-grid-item";
-import AppHeader from "../app-header";
-import BottomButtons from "../bottom-buttons/bottom-buttons";
-import SearchPanel from "../search-panel";
+import DataGridHeader from "../data-grid-header";
+import CreateModal from "../create-modal";
 
 const PeopleDataGrid = ({
   peopleData,
   error,
   onSortChange,
   sortOrder,
-  sortColumn,
-  currentPage,
-  totalPageCount,
-  dispatchSetCurrentPage,
-  onSearchChange,
-  inputValue,
+  sortColumn
 }) => {
+
+  const [modalActive, setModalActive] = useState(true)
   const buttons = [
     { name: "name", label: "Name" },
     { name: "birth_year", label: "Birth Year" },
@@ -25,6 +21,7 @@ const PeopleDataGrid = ({
     { name: "eye_color", label: "Eye Color" },
     { name: "height", label: "Height" },
   ];
+
 
   if (error) {
     return <ErrorIndicator />;
@@ -48,8 +45,7 @@ const PeopleDataGrid = ({
   });
   return (
     <>
-      <SearchPanel onSearchChange={onSearchChange} inputValue={inputValue} />
-      <AppHeader
+      <DataGridHeader
         onSortChange={onSortChange}
         sortOrder={sortOrder}
         sortColumn={sortColumn}
@@ -59,11 +55,7 @@ const PeopleDataGrid = ({
         {" "}
         {elements}
       </Flex>
-      <BottomButtons
-        currentPage={currentPage}
-        totalPageCount={totalPageCount}
-        dispatchSetCurrentPage={dispatchSetCurrentPage}
-      />
+      <CreateModal active={modalActive} setActive={{setModalActive}}/>
     </>
   );
 };

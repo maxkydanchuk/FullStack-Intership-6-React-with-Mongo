@@ -16,7 +16,7 @@ const BottomButtons = ({
     return (
       <span
         key={index}
-        className={currentPage == item ? "current-page" : "page"}
+        className={currentPage === item ? "current-page" : "page"}
         onClick={() => dispatchSetCurrentPage(item)}
       >
         {item + 1}
