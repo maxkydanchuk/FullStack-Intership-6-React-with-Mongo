@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 
 const CreateModal = ({ isShowing, hide }) => {
-    
+
     // useEffect(() => {
     //     const close = (e) => {
     //         if(e.keyCode === 27){

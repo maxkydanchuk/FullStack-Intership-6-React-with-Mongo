@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import useModal from "../hooks/useModal";
+import useModal from "../../hooks/useModal";
 import CreateModal from "../create-modal";
 
 const CreateButton = () => {
