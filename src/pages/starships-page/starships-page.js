@@ -1,11 +1,11 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { fetchStarshipsData, resetStore, deleteStarshipThunk } from "../../redux/starships/starshipsActions";
 import { useDispatch, useSelector } from "react-redux";
 import StarshipsDataGrid from "../../components/starships-data-grid";
 import PageNavbar from "../../components/page-navbar";
 import BottomButtons from "../../components/bottom-buttons";
 import { useDisclosure } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import CreateModal from "../../components/create-modal";
 
 
 const StarshipsPage = ({
@@ -19,7 +19,6 @@ const StarshipsPage = ({
 }) => {
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { id } = useParams()
 
   
   const starshipsStore = useSelector((state) => ({
@@ -52,15 +51,19 @@ const StarshipsPage = ({
     }
   }, [])
 
+  const [itemToEdit, setItemToEdit] = useState();
+
   return (
       <>
         <PageNavbar
             onSearchChange={onSearchChange}
             inputValue={inputValue}
-            isOpen={isOpen}
             onOpen={onOpen}
+        />
+        <CreateModal
+            isOpen={isOpen}
             onClose={onClose}
-
+            starship={itemToEdit}
         />
         <StarshipsDataGrid
             starshipsData={starshipsData}

@@ -11,12 +11,11 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { addStarshipThunk, updateStarshipThunk } from "../../redux/starships/starshipsActions";
 import { useDispatch } from "react-redux";
 
-const CreateModal = ({ isOpen, onOpen, onClose, starship = {} }) => {
+const CreateModal = ({ isOpen, onClose, starship = {} }) => {
 
   // starship = {
   //   id: new Date(),
@@ -78,8 +77,6 @@ const CreateModal = ({ isOpen, onOpen, onClose, starship = {} }) => {
   };
 
   return (
-    <>
-      <Button onClick={onOpen}>Create starship</Button>
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -136,7 +133,6 @@ const CreateModal = ({ isOpen, onOpen, onClose, starship = {} }) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
   );
 };
 
