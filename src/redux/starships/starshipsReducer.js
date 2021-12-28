@@ -3,6 +3,9 @@ import {
   STARSHIPS_HAS_ERROR,
   STARSHIPS_ARE_LOADING,
   SET_CURRENT_PAGE,
+  CREATE_STARSHIP,
+  EDIT_STARSHIP,
+  DELETE_STARSHIP,
   RESET_STORE
 } from './starshipsTypes'
 
@@ -10,7 +13,7 @@ const initialState = {
   data: [],
   loading: false,
   error: "",
-  currentPage: 0,
+  currentPage: null,
   totalCount: 0
 };
 
@@ -39,6 +42,19 @@ export const starshipsReducer = (state = initialState, action) => {
           ...state,
           currentPage: action.page
         };
+        case CREATE_STARSHIP: 
+        return {
+          ...state,
+         data: [...state.data, action.payload]
+        };
+        case EDIT_STARSHIP: 
+        return {
+          initialState
+        }
+        case DELETE_STARSHIP: 
+        return {
+          initialState
+        }
         case RESET_STORE: 
         return {
           initialState

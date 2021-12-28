@@ -42,7 +42,9 @@ const PeoplePage = ({
   }, [sortOrder, sortColumn, inputValue, peopleData.length, peopleCurrentPage]);
 
     useEffect(() => {
-      dispatch(resetStore())
+      return () => {
+        dispatch(resetStore());
+      }
     }, [])
 
  

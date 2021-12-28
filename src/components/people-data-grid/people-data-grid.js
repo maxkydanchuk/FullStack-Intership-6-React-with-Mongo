@@ -13,7 +13,6 @@ const PeopleDataGrid = ({
   sortColumn
 }) => {
 
-  const [modalActive, setModalActive] = useState(true)
   const buttons = [
     { name: "name", label: "Name" },
     { name: "birth_year", label: "Birth Year" },
@@ -55,7 +54,6 @@ const PeopleDataGrid = ({
         {" "}
         {elements}
       </Flex>
-      <CreateModal active={modalActive} setActive={{setModalActive}}/>
     </>
   );
 };

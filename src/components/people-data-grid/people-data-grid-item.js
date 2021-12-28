@@ -1,7 +1,7 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 
-const PeopleDataGridItem = ({ name, birthYear, eyeColor, gender, height }) => {
+const PeopleDataGridItem = ({ name, birthYear, eyeColor, gender, height, onOpen }) => {
   return (
     <>
       <Box className="table__row_year" flex="2" pt="8" pb="8">
@@ -19,6 +19,12 @@ const PeopleDataGridItem = ({ name, birthYear, eyeColor, gender, height }) => {
       <Box className="table__row_fullname" flex="2" pt="8" pb="8">
         {height}
       </Box>
+      <Button  colorScheme='teal' variant='link' flex="1" onClick={onOpen}>
+    Edit
+  </Button>
+      <Button  colorScheme='teal' variant='link' flex="1">
+    Delete
+  </Button>
     </>
   );
 };

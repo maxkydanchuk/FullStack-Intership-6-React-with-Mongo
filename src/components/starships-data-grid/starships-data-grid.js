@@ -11,8 +11,11 @@ const StarshipsDataGrid = ({
   onSortChange,
   sortOrder,
   sortColumn,
-  onSearchChange,
-  inputValue,
+  dispatchDeleteStaship,
+  isOpen, 
+  onOpen, 
+  onClose,
+  test
 }) => {
   const buttons = [
     { name: "starship_class", label: "Starship class" },
@@ -25,7 +28,7 @@ const StarshipsDataGrid = ({
     return <ErrorIndicator />;
   }
   const elements = starshipsData.map((item) => {
-    const { _id, ...itemProps } = item;
+    const { _id } = item;
     return (
       <Flex
         key={_id}
@@ -36,7 +39,13 @@ const StarshipsDataGrid = ({
         borderBottom="1px solid rgba(224, 224, 224, 1)"
         color="rgb(49, 47, 47)"
       >
-        <StarshipsPageItem {...itemProps} />
+        <StarshipsPageItem 
+        {...item} 
+        dispatchDeleteStaship={dispatchDeleteStaship}
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        />
       </Flex>
     );
   });
@@ -46,7 +55,9 @@ const StarshipsDataGrid = ({
         onSortChange={onSortChange}
         sortOrder={sortOrder}
         sortColumn={sortColumn}
-        buttons={buttons}
+        buttons={buttons}        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
       />
       <Flex className="table__row_wrapper" direction="column">
         {" "}

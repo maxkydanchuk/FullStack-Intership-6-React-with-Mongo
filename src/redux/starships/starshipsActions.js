@@ -6,6 +6,9 @@ import {
     STARSHIPS_ARE_LOADING,
     FILTER_STARSHIPS,
     SET_CURRENT_PAGE,
+    CREATE_STARSHIP,
+    EDIT_STARSHIP,
+    DELETE_STARSHIP,
     RESET_STORE
 } from './starshipsTypes'
 
@@ -37,9 +40,24 @@ export const setCurrentPage = (page) => ({
     page
 });
 
+export const addStarship = (payload) => ({
+    type: CREATE_STARSHIP,
+    payload
+});
+
+export const editStarship = (payload) => ({
+    type: EDIT_STARSHIP,
+    payload
+});
+
+export const deleteStarship = (id) => ({
+    type: DELETE_STARSHIP,
+    id
+});
+
 export const resetStore = () => ({
     type: RESET_STORE,
-})
+});
 
 
 export function fetchStarshipsData(param) {
@@ -50,4 +68,31 @@ export function fetchStarshipsData(param) {
             .then((response) => dispatch(fetchDataSuccess(response.data, response.totalCount)))
             .catch(() => dispatch(dataHaveError(true)));
     };
+}
+
+export function addStarshipThunk(item) {
+    return  (dispatch) => {
+        dispatch(dataAreLoading(true));
+        api.createStarship(item)
+        .then(dispatch(addStarship(item)))
+        .catch(() => dispatch(dataHaveError(true)))
+    }
+}
+
+export function deleteStarshipThunk(id) {
+    return (dispatch) => {
+        dispatch(dataAreLoading(true)); 
+        api.deleteResource('starships', id)
+        .then(dispatch(deleteStarship(id)))
+        .catch(() => dispatch(dataHaveError(true)))
+    }
+}
+
+export function updateStarshipThunk(item, id) {
+    return (dispatch) => {
+        dispatch(dataAreLoading(true));
+        api.updateResource('starships', id, item)
+        .then(dispatch(editStarship(item)))
+        .catch(() => dispatch(dataHaveError(true)))
+    }
 }

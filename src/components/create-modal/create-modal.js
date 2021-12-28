@@ -1,66 +1,143 @@
-import React, {useEffect} from "react";
-import {FormControl, FormLabel, Input, Box, ButtonGroup, Button} from "@chakra-ui/react";
-import ReactDOM from "react-dom";
+import { React, useRef, useState, useEffect } from "react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { addStarshipThunk, updateStarshipThunk } from "../../redux/starships/starshipsActions";
+import { useDispatch } from "react-redux";
 
+const CreateModal = ({ isOpen, onOpen, onClose, starship = {} }) => {
 
+  // starship = {
+  //   id: new Date(),
+  //   starshipClass: '1',
+  //   MGLT: '2',
+  //   pilots: '3',
+  //   hyperdriveRating: '4'
+  // }
 
-const CreateModal = ({ isShowing, hide }) => {
+  const [pilots, setPilots] = useState(starship.pilots || "");
+  const [MGLT, setMGLT] = useState(starship.MGLT || "");
+  const [starshipClass, setStarshipClass] = useState(
+    starship.starshipClass || ""
+  );
+  const [hyperdriveRating, setHyperdriveRating] = useState(
+    starship.hyperdriveRating || ""
+  );
 
-    // useEffect(() => {
-    //     const close = (e) => {
-    //         if(e.keyCode === 27){
-    //             hide()
-    //         }
-    //     }
-    //     window.addEventListener('keydown', close)
-    //     return () => window.removeEventListener('keydown', close)
-    // },[])
+  const dispatch = useDispatch();
 
-    return (
-        isShowing ? ReactDOM.createPortal(
-            <Box
-                className="modal"
-                w="40%"
-                position="fixed"
-                top="20%"
-                backgroundColor="white"
-                left="30%"
-                border="1px black solid"
-                onClick={(e) => e.stopPropagation()}
-            >
-                <Box
-                    className="modal__content"
-                    backgroundColor="white"
-                >
-                    <FormControl isRequired>
-                        <FormLabel htmlFor='name'>Name</FormLabel>
-                        <Input id='name' placeholder='Name' />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel htmlFor='birth-year'>Birth Year</FormLabel>
-                        <Input id='birth_year' placeholder='Birth Year' />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel htmlFor='gender'>gender</FormLabel>
-                        <Input id='gender' placeholder='Gender' />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel htmlFor='eye-color'>Eye Color</FormLabel>
-                        <Input id='eye_color' placeholder='Eye Color' />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel htmlFor='height'>Height</FormLabel>
-                        <Input id='height' placeholder='Height' />
-                    </FormControl>
-                    <ButtonGroup variant='outline' spacing='6'>
-                        <Button colorScheme='blue'>Save</Button>
-                        <Button onClick={hide}>Cancel</Button>
-                    </ButtonGroup>
-                </Box>
-            </Box>, document.body
-        ) : null
-    )
-}
+  const initialRef = useRef();
+  const finalRef = useRef();
 
+  const addNewItem = (item) => dispatch(addStarshipThunk(item));
+  const updateItem = (item) => dispatch(updateStarshipThunk(item))
+
+  function resetForm() {
+    setPilots('');
+    setMGLT('');
+    setStarshipClass('');
+    setHyperdriveRating('')
+  }
+
+  const submitNewItem = async (e) => {
+    e.preventDefault();
+
+    if(starship.id) {
+      updateItem({
+        fields: {
+          pilots,
+          MGLT,
+          starship_class: starshipClass,
+          hyperdrive_rating: hyperdriveRating,
+        }
+      })
+    } else {
+      addNewItem({
+        fields: {
+          pilots,
+          MGLT,
+          starship_class: starshipClass,
+          hyperdrive_rating: hyperdriveRating,
+        }
+      });
+    }
+    onClose();
+
+    resetForm();
+  };
+
+  return (
+    <>
+      <Button onClick={onOpen}>Create starship</Button>
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create new starship</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Starship class</FormLabel>
+              <Input
+                ref={initialRef}
+                placeholder="Starship class"
+                value={starshipClass}
+                onChange={(e) => setStarshipClass(e.target.value)}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>MGLT</FormLabel>
+              <Input
+                placeholder="MGLT"
+                value={MGLT}
+                onChange={(e) => setMGLT(e.target.value)}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Hyperdrive rating</FormLabel>
+              <Input
+                placeholder="Hyperdrive rating"
+                type="number"
+                value={hyperdriveRating}
+                onChange={(e) => setHyperdriveRating(e.target.value)}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Pilots</FormLabel>
+              <Input
+                placeholder="Pilots"
+                value={pilots}
+                onChange={(e) => setPilots(e.target.value)}
+              />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={submitNewItem}>
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
 
 export default CreateModal;

@@ -10,7 +10,7 @@ const initialState = {
   data: [],
   loading: false,
   error: "",
-  currentPage: 0,
+  currentPage: null,
   totalCount: 0
 };
 
