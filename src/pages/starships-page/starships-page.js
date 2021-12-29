@@ -5,7 +5,7 @@ import StarshipsDataGrid from "../../components/starships-data-grid";
 import PageNavbar from "../../components/page-navbar";
 import BottomButtons from "../../components/bottom-buttons";
 import { useDisclosure } from "@chakra-ui/react";
-import CreateModal from "../../components/create-modal";
+import StarshipsModal from "../../components/starships-modal";
 
 
 const StarshipsPage = ({
@@ -20,7 +20,7 @@ const StarshipsPage = ({
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  
+
   const starshipsStore = useSelector((state) => ({
     starshipsData: state.starships.data,
     starshipsError: state.starships.error,
@@ -53,14 +53,19 @@ const StarshipsPage = ({
 
   const [itemToEdit, setItemToEdit] = useState();
 
+  const handleEditItem = (item) => {
+    setItemToEdit(item);
+    onOpen();
+  }
+
   return (
       <>
         <PageNavbar
             onSearchChange={onSearchChange}
             inputValue={inputValue}
-            onOpen={onOpen}
+            onCreateItem={handleEditItem}
         />
-        <CreateModal
+        <StarshipsModal
             isOpen={isOpen}
             onClose={onClose}
             starship={itemToEdit}
@@ -72,10 +77,11 @@ const StarshipsPage = ({
             setOrder={() => setOrder}
             sortColumn={sortColumn}
             onSearchChange={onSearchChange}
-            dispatchDeleteStaship={dispatchDeleteStaship}
+            dispatchDeleteStarship={dispatchDeleteStaship}
             isOpen={isOpen}
             onOpen={onOpen}
             onClose={onClose}
+            onEditItem={handleEditItem}
         />
         <BottomButtons
             currentPage={starshipsCurrentPage}

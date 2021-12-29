@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Flex, Button } from "@chakra-ui/react";
 import HomeButton from "./home-button";
 
-const HeaderButtons = ({ onOpen }) => {
+const HeaderButtons = ({ onCreateItem }) => {
 
     return (
         <Flex
@@ -14,7 +14,7 @@ const HeaderButtons = ({ onOpen }) => {
         <NavLink to='/' exact='true'>
        <HomeButton/>
        </NavLink>
-       <Button onClick={onOpen}>Create starship</Button>
+       <Button onClick={ () => onCreateItem({})}>Create starship</Button>
        </Flex>
   
         

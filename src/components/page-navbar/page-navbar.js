@@ -3,12 +3,12 @@ import {Box} from "@chakra-ui/react";
 import SearchPanel from "../search-panel";
 import HeaderButtons from "../header-buttons";
 
-const PageNavbar = ({onSearchChange, inputValue, onOpen }) => {
+const PageNavbar = ({onSearchChange, inputValue, onCreateItem }) => {
 
     return (
         <Box>
             <HeaderButtons
-                onOpen={onOpen}
+                onCreateItem={onCreateItem}
             />
             <SearchPanel onSearchChange={onSearchChange} inputValue={inputValue}/>
         </Box>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Flex, Box } from "@chakra-ui/react";
+import { Input, Flex } from "@chakra-ui/react";
 
 const SearchPanel = ({ onSearchChange, inputValue }) => {
   return (

@@ -15,15 +15,7 @@ import {
 import { addStarshipThunk, updateStarshipThunk } from "../../redux/starships/starshipsActions";
 import { useDispatch } from "react-redux";
 
-const CreateModal = ({ isOpen, onClose, starship = {} }) => {
-
-  // starship = {
-  //   id: new Date(),
-  //   starshipClass: '1',
-  //   MGLT: '2',
-  //   pilots: '3',
-  //   hyperdriveRating: '4'
-  // }
+const StarshipsModal = ({ isOpen, onClose, starship = {} }) => {
 
   const [pilots, setPilots] = useState(starship.pilots || "");
   const [MGLT, setMGLT] = useState(starship.MGLT || "");
@@ -34,13 +26,21 @@ const CreateModal = ({ isOpen, onClose, starship = {} }) => {
     starship.hyperdriveRating || ""
   );
 
+  useEffect(() => {
+    setPilots(starship.pilots);
+    setMGLT(starship.MGLT);
+    setStarshipClass(starship.starshipClass);
+    setHyperdriveRating(starship.hyperdriveRating);
+  }, [starship._id])
+
+
   const dispatch = useDispatch();
 
   const initialRef = useRef();
   const finalRef = useRef();
 
   const addNewItem = (item) => dispatch(addStarshipThunk(item));
-  const updateItem = (item) => dispatch(updateStarshipThunk(item))
+  const updateItem = (item, id) => dispatch(updateStarshipThunk(item, id))
 
   function resetForm() {
     setPilots('');
@@ -52,7 +52,7 @@ const CreateModal = ({ isOpen, onClose, starship = {} }) => {
   const submitNewItem = async (e) => {
     e.preventDefault();
 
-    if(starship.id) {
+    if(starship._id) {
       updateItem({
         fields: {
           pilots,
@@ -60,7 +60,7 @@ const CreateModal = ({ isOpen, onClose, starship = {} }) => {
           starship_class: starshipClass,
           hyperdrive_rating: hyperdriveRating,
         }
-      })
+      }, starship._id)
     } else {
       addNewItem({
         fields: {
@@ -70,18 +70,17 @@ const CreateModal = ({ isOpen, onClose, starship = {} }) => {
           hyperdrive_rating: hyperdriveRating,
         }
       });
+      resetForm();
     }
     onClose();
-
-    resetForm();
   };
 
   return (
       <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
+          initialFocusRef={initialRef}
+          finalFocusRef={finalRef}
+          isOpen={isOpen}
+          onClose={onClose}
       >
         <ModalOverlay />
         <ModalContent>
@@ -91,40 +90,39 @@ const CreateModal = ({ isOpen, onClose, starship = {} }) => {
             <FormControl>
               <FormLabel>Starship class</FormLabel>
               <Input
-                ref={initialRef}
-                placeholder="Starship class"
-                value={starshipClass}
-                onChange={(e) => setStarshipClass(e.target.value)}
+                  ref={initialRef}
+                  placeholder="Starship class"
+                  value={starshipClass || ""}
+                  onChange={(e) => setStarshipClass(e.target.value)}
               />
             </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>MGLT</FormLabel>
               <Input
-                placeholder="MGLT"
-                value={MGLT}
-                onChange={(e) => setMGLT(e.target.value)}
+                  placeholder="MGLT"
+                  value={MGLT || ""}
+                  onChange={(e) => setMGLT(e.target.value)}
               />
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Hyperdrive rating</FormLabel>
               <Input
-                placeholder="Hyperdrive rating"
-                type="number"
-                value={hyperdriveRating}
-                onChange={(e) => setHyperdriveRating(e.target.value)}
+                  placeholder="Hyperdrive rating"
+                  type="number"
+                  value={hyperdriveRating || ""}
+                  onChange={(e) => setHyperdriveRating(e.target.value)}
               />
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Pilots</FormLabel>
               <Input
-                placeholder="Pilots"
-                value={pilots}
-                onChange={(e) => setPilots(e.target.value)}
+                  placeholder="Pilots"
+                  value={pilots || ""}
+                  onChange={(e) => setPilots(e.target.value)}
               />
             </FormControl>
           </ModalBody>
-
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={submitNewItem}>
               Save
@@ -133,7 +131,7 @@ const CreateModal = ({ isOpen, onClose, starship = {} }) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-  );
+  )
 };
 
-export default CreateModal;
+export default StarshipsModal;

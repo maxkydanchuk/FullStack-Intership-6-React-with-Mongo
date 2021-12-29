@@ -44,9 +44,6 @@ function App() {
           borderBottom="none"
           borderRadius="4"
         >
-          {/* <NavLink to="/" exact="true">
-            <Box mt={10}> Home</Box>
-          </NavLink> */}
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route

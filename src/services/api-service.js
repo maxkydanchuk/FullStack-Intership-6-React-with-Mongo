@@ -35,7 +35,7 @@ export default class apiService {
   }
 
   updateResource  = async(url, id, data ={}) => {
-    const res = await fetch(`${this._apiBase}${url}/${id}`, {
+    const res = await fetch(`${this._apiBase}/${url}/${id}/edit`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

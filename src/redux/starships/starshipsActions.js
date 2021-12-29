@@ -74,7 +74,7 @@ export function addStarshipThunk(item) {
     return  (dispatch) => {
         dispatch(dataAreLoading(true));
         api.createStarship(item)
-        .then(dispatch(addStarship(item)))
+        .then((response) => dispatch(addStarship(response)))
         .catch(() => dispatch(dataHaveError(true)))
     }
 }
@@ -83,7 +83,7 @@ export function deleteStarshipThunk(id) {
     return (dispatch) => {
         dispatch(dataAreLoading(true)); 
         api.deleteResource('starships', id)
-        .then(dispatch(deleteStarship(id)))
+        .then((response) => dispatch(deleteStarship(response)))
         .catch(() => dispatch(dataHaveError(true)))
     }
 }
@@ -92,7 +92,7 @@ export function updateStarshipThunk(item, id) {
     return (dispatch) => {
         dispatch(dataAreLoading(true));
         api.updateResource('starships', id, item)
-        .then(dispatch(editStarship(item)))
+        .then((response) => dispatch(editStarship(response)))
         .catch(() => dispatch(dataHaveError(true)))
     }
 }

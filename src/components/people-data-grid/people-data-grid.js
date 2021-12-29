@@ -1,9 +1,8 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { Flex } from "@chakra-ui/react";
 import ErrorIndicator from "../error-indicator";
 import PeopleDataGridItem from "./people-data-grid-item";
 import DataGridHeader from "../data-grid-header";
-import CreateModal from "../create-modal";
 
 const PeopleDataGrid = ({
   peopleData,

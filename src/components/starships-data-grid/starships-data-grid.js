@@ -11,11 +11,10 @@ const StarshipsDataGrid = ({
   onSortChange,
   sortOrder,
   sortColumn,
-  dispatchDeleteStaship,
+  dispatchDeleteStarship,
   isOpen, 
   onOpen, 
-  onClose,
-  test
+  onClose, onEditItem
 }) => {
   const buttons = [
     { name: "starship_class", label: "Starship class" },
@@ -41,10 +40,11 @@ const StarshipsDataGrid = ({
       >
         <StarshipsPageItem 
         {...item} 
-        dispatchDeleteStaship={dispatchDeleteStaship}
+        dispatchDeleteStarship={dispatchDeleteStarship}
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
+        onEditItem={onEditItem}
         />
       </Flex>
     );
