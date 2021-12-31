@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Button } from "@chakra-ui/react";
 
-const StarshipsPageItem = ({_id, starshipClass, MGLT, hyperdriveRating, pilots, dispatchDeleteStarship, onEditItem,}) => {
+const StarshipsPageItem = ({_id, starshipClass, MGLT, hyperdriveRating, pilots, dispatchDeleteStarship, onEditItem }) => {
 
     const starship = {
         _id,

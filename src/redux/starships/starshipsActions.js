@@ -88,10 +88,10 @@ export function deleteStarshipThunk(id) {
     }
 }
 
-export function updateStarshipThunk(item, id) {
+export function updateStarshipThunk(item, id, token = '1') {
     return (dispatch) => {
         dispatch(dataAreLoading(true));
-        api.updateResource('starships', id, item)
+        api.updateResource('starships', id, item, token)
         .then((response) => dispatch(editStarship(response)))
         .catch(() => dispatch(dataHaveError(true)))
     }

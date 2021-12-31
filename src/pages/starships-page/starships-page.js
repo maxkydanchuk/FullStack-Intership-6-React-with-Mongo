@@ -28,11 +28,20 @@ const StarshipsPage = ({
     starshipsCurrentPage: state.starships.currentPage,
     starshipsTotalPageCount: state.starships.totalCount,
   }));
+
+  const authStore = useSelector((state) => ({
+    token: state.auth
+  }));
+
   let {
     starshipsData = [],
     starshipsCurrentPage,
     starshipsTotalPageCount,
   } = starshipsStore;
+
+  let  {
+    token
+  } = authStore;
 
   const dispatchDeleteStaship = (id) => {
     dispatch(deleteStarshipThunk(id));
@@ -69,6 +78,7 @@ const StarshipsPage = ({
             isOpen={isOpen}
             onClose={onClose}
             starship={itemToEdit}
+            token={token}
         />
         <StarshipsDataGrid
             starshipsData={starshipsData}

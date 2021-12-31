@@ -24,7 +24,7 @@ export default class apiService {
     return await res.json();
   }
 
-   deleteResource  = async(url, id) => {
+  deleteResource  = async(url, id) => {
     const res = await fetch(`${this._apiBase}/${url}/${id}`, {
       method: 'DELETE'
     });
@@ -34,11 +34,12 @@ export default class apiService {
     return await res.json();
   }
 
-  updateResource  = async(url, id, data ={}) => {
+  updateResource  = async(url, id, data ={}, token) => {
     const res = await fetch(`${this._apiBase}/${url}/${id}/edit`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-access-token' : token.state
       },
       body: JSON.stringify(data)
     });
@@ -66,10 +67,6 @@ export default class apiService {
     return {data:this._adaptPeople(res), totalCount: res.totalCount};
   };
 
-  getPerson = async (id) => {
-    const person = await this.getResource(`/people/${id}`);
-    return person;
-  };
 
   getAllStarships = async (param, query , value, currentPage, pageSize) => {
 
@@ -89,25 +86,41 @@ export default class apiService {
     return {data:this._adaptStaships(res), totalCount: res.totalCount};
   };
 
-  getStarship = async (id) => {
-    const starship = await this.getResource(`/starships/${id}`);
-    return starship;
-  };
 
   createStarship = async (item) => {
-    const newStarship = await this.postResource('/starships/', item)
-    return newStarship;
+    return await this.postResource('/starships/', item);
   }
 
-  // deleteItem = async (url, id) => {
-  //   const deletedStarship = await this.deleteResource(`/${url}/${id}`)
-  //   return deletedStarship
-  // }
+  getUser = async ( data ) => {
+    const res = await fetch(`${this._apiBase}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-acess-token' : ''
+      },
+      body: JSON.stringify(data)
+    })
 
-  // updateItem = async (url, id, item) => {
-  //   const updatedItem = await this.updateResource(`/${url}/${id}`)
-  //   return updatedItem
-  // }
+    const response = res.json().then(res => (res));
+    localStorage.setItem('token', await response);
+    return response
+  }
+
+  registerUser = async (data, token) => {
+
+    const res = await fetch(`${this._apiBase}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+      // throw new Error(`Could not fetch , status ${res.status}`);
+    }
+    return await res.json();
+  }
+
 
   _adaptPeople = (data) => {
     const result = [];

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import {React, useEffect, useState} from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,15 +8,24 @@ import { ChakraProvider, Box } from "@chakra-ui/react";
 import MainPage from "../main-page";
 import { useDispatch } from "react-redux";
 import { setCurrentPage } from "../../redux/people/peopleActions";
-
 import StarshipsPage from "../../pages/starships-page";
 import PeoplePage from "../../pages/people-page";
+import LoginPage from "../../pages/loginPage/loginPage";
+import RegisterPage from "../../pages/registerPage/registerPage";
+import {loginSuccess} from "../../redux/auth/authActions";
 
 function App() {
   const [inputValue, setSearchValue] = useState("");
   const [sortOrder, setOrder] = useState(null);
   const [sortColumn, setSortColumn] = useState(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const data = localStorage.getItem('token');
+    if(data) {
+      dispatch(loginSuccess(data))
+    }
+  }, [])
 
   const onSortChange = (newSortColumn, newSortOrder) => {
     if (sortColumn === newSortColumn) {
@@ -45,6 +54,8 @@ function App() {
           borderRadius="4"
         >
           <Routes>
+            <Route path='/login' element={<LoginPage/>} />
+            <Route path='/register' element={<RegisterPage/>} />
             <Route path="/" element={<MainPage />} />
             <Route
               path="/people"

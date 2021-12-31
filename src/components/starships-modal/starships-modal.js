@@ -15,7 +15,7 @@ import {
 import { addStarshipThunk, updateStarshipThunk } from "../../redux/starships/starshipsActions";
 import { useDispatch } from "react-redux";
 
-const StarshipsModal = ({ isOpen, onClose, starship = {} }) => {
+const StarshipsModal = ({ isOpen, onClose, starship = {}, token }) => {
 
   const [pilots, setPilots] = useState(starship.pilots || "");
   const [MGLT, setMGLT] = useState(starship.MGLT || "");
@@ -40,14 +40,14 @@ const StarshipsModal = ({ isOpen, onClose, starship = {} }) => {
   const finalRef = useRef();
 
   const addNewItem = (item) => dispatch(addStarshipThunk(item));
-  const updateItem = (item, id) => dispatch(updateStarshipThunk(item, id))
+  const updateItem = (item, id) => dispatch(updateStarshipThunk(item, id, token))
 
   function resetForm() {
     setPilots('');
     setMGLT('');
     setStarshipClass('');
-    setHyperdriveRating('')
-  }
+    setHyperdriveRating('');
+  };
 
   const submitNewItem = async (e) => {
     e.preventDefault();
