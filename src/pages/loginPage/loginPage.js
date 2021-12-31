@@ -19,11 +19,6 @@ const LoginPage = () => {
 
     const getUser = (item) => dispatch(addLoginSuccessThunk(item, token))
 
-    // useEffect(() => {
-    //     setToken(authStore.token)
-    // }, [authStore]);
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
