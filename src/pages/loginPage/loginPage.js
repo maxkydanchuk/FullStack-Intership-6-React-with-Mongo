@@ -12,12 +12,11 @@ const LoginPage = () => {
 
     const [ email, setEmail ] = useState("");
     const [ password, setPassword] = useState("");
-    const [token, setToken] = useState(  authStore.token || null);
     const history = useNavigate();
 
     const dispatch = useDispatch()
 
-    const getUser = (item) => dispatch(addLoginSuccessThunk(item, token))
+    const getUser = (item) => dispatch(addLoginSuccessThunk(item))
 
 
     const handleSubmit = (e) => {
